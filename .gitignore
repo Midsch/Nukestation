@@ -1,0 +1,76 @@
+#########################################
+# Global ignores for the full project
+#########################################
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node & CRA
+frontend/node_modules/
+frontend/build/
+frontend/.pnp/
+frontend/.pnp.js
+
+# CRA testing artifacts
+frontend/coverage/
+
+# optional npm debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+#########################################
+# Python / Flask backend
+#########################################
+
+# Python cache / compiled files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+backend/venv/
+venv/
+env/
+.env/
+
+# Flask instance / cache
+instance/
+*.db
+*.sqlite3
+
+#########################################
+# General development
+#########################################
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+#########################################
+# Deployment artifacts
+#########################################
+
+# CRA / build output (should not be versioned)
+build/
+dist/
+
+# Nginx served files (if used)
+www/
+
+# Systemd backup or temp files
+*.service~

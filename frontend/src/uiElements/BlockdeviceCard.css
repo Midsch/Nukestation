@@ -1,0 +1,77 @@
+.blockdeviceCardContainer {
+    position: relative;
+    margin: 20px;
+    padding: 10px 30px 25px 30px;
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: rgba(128, 212, 255, 0.6);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    color: black;
+    z-index: 1;
+}
+
+/*not used yet*/
+.blockdeviceCardIconContainer {
+    margin: 2px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 15%;
+    width: 60px;
+}
+
+.blockdeviceCardColumnVendor p {
+    margin: 0px;
+    margin-top: 5px;
+    padding: 0px;
+    color: rgb(64, 64, 64);
+}
+
+.blockdeviceCardColumnSize p, .blockdeviceCardColumnSerial p {
+    margin: 0px;
+    margin-top: 20px;
+    margin-bottom: 9px;
+    padding: 0px;
+    color: rgb(64, 64, 64);
+}
+
+.blockdeviceCardColumnSize h3, .blockdeviceCardColumnSerial h3 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.blockdeviceCardRow {
+    display: flex;
+}
+
+/*not used yet*/
+.blockdeviceCardColumnIcon {
+    flex: 10%;
+    padding-top: 20px;
+}
+
+.blockdeviceCardColumnVendor {
+    flex: 18%;
+    padding-top: 10px;
+}
+
+.blockdeviceCardColumnSize {
+    flex: 8%;
+}
+
+.blockdeviceCardColumnSerial {
+    flex: 20%;
+}
+
+/*not used yet*/
+.blockdeviceCardColumnName {
+    flex: 20%;
+}
+
+.blockdeviceCardColumnDropdown {
+    flex: 29%;
+}
+
+.blockdeviceCardColumnAction {
+    flex: 5%;
+}

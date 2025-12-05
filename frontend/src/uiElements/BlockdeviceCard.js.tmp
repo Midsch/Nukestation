@@ -1,0 +1,116 @@
+import { React, useState, useEffect } from 'react';
+
+import './BlockdeviceCard.css';
+import iconHDD from '../icons/icon-hdd-100x100.png'
+
+
+const dropdownList = [{
+                        'methodName': 'Overwrite with zeros',                    
+                        'methodShortName': 'Zeros'
+                      }, {
+                        'methodName': 'Overwrite with ones',
+                        'methodShortName': 'Ones'
+                      }, {
+                        'methodName': 'Overwrite with PRNG Stream',
+                        'methodShortName': 'Random'
+                      }, {
+                        'methodName': 'RCMP TSSIT OPS-II',
+                        'methodShortName': 'OPS-II'
+                      }, {
+                        'methodName': 'HMG IS5 enhanced',
+                        'methodShortName': 'IS5 enhanced'
+                      }, {
+                        'methodName': "Peter Gutmann's Algorithm",
+                        'methodShortName': "Gutmann"
+                      }, {
+                        'methodName': '3 pass DOD method',
+                        'methodShortName': 'DOD short'
+                      }, {
+                        'methodName': '7 pass DOD 5220.22-M method',
+                        'methodShortName': 'DOD 522022M'
+                      }];
+
+function BlockdeviceCard(props) {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [dropdownText, setDropdownText] = useState('Wipe Method');
+    
+
+    /* useEffect(() => {
+        const interval = setInterval(() => {
+          getProgress();
+        }, 60000);
+        return () => clearInterval(interval);
+      }, []); */
+    
+    const handleDropdownOpen = () => {
+        setDropdownOpen(!dropdownOpen);
+    }
+
+    const handleDropdownOne = () => {
+       console.log('One');
+       setDropdownOpen(false);
+    }
+    
+    const handleDropdownTwo = () => {
+       console.log('Two');
+       setDropdownOpen(false);
+    }
+
+    const handleDropdownSelect = (event) => {
+        event.preventDefault();
+        console.log(event.target.value);
+        setDropdownText(event.target.value);
+        handleDropdownOpen();
+    }
+
+    
+    return (
+        <div className = 'blockdeviceCardContainer' style = {{zIndex: `${props.zIndex}`}}>
+            <div className = 'blockdeviceCardRow'>
+                {/*<div className = 'blockdeviceCardColumnIcon'>
+                    <div className = 'blockdeviceCardIconContainer'>
+                        <img src = {iconHDD} alt = "HDD Icon" style = {{width:'100%'}}/>
+                    </div>
+                </div>*/}
+                <div className = 'blockdeviceCardColumnVendor'>
+                    <h1>{props.vendor}</h1>
+                    <p>{props.name}</p>
+                </div>
+                <div className = 'blockdeviceCardColumnSize'>
+                    <p>Size:</p>
+                    <h3>{props.size}</h3>
+                </div>
+                <div className = 'blockdeviceCardColumnSerial'>
+                    <p>Serial:</p>
+                    <h3>{props.serial}</h3>
+                </div>
+                <div className = 'blockdeviceCardColumnDropdown'>
+                    <div className = "blockdeviceCardDropdown">
+                        <button onClick = {handleDropdownOpen}><span className = "blockdeviceCardDropdownMenuText">{dropdownText}</span><span className = "blockdeviceCardDropdownMenuArrow">&#709;</span></button>
+                        {dropdownOpen ? (
+                            <ul className="blockdeviceCardDropdownMenu">
+                                {dropdownList.map((item) => {
+                                    return (
+                                            <li className="blockdeviceCardDropdownMenuItem">
+                                            <button value = {item['methodShortName']} onClick = {handleDropdownSelect}>{item['methodName']}</button>
+                                            </li>
+                                    )})
+                                }
+                            </ul>
+                        ) : null}
+                    </div>
+                </div>
+                <div className = 'blockdeviceCardColumnAction'>
+                    <p>Wipe:</p>
+                </div>
+            </div>
+            <div className = "blockdeviceCardProgressbarContainer">
+                <div className = "progressbar">
+
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default BlockdeviceCard;

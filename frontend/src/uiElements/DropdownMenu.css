@@ -1,0 +1,71 @@
+.dropdownMenuContainer {
+    position: relative;
+    margin: 0px;
+    padding: 15px 0px 0px 0px;
+    z-index: 10;
+}
+
+.dropdownMenuContainer > button {
+    margin: 0px 10px;
+    padding: 20px 10px;
+    border-radius: 8px;
+    border: 3px solid black;
+    /*background-color: rgb(128, 212, 255);*/
+    background-color: lightgrey;
+    font-size: 24px;
+    font-weight: 300;
+    width: 90%;
+    height: 70px;
+}
+
+.dropdownMenuEntries {
+    position: absolute;
+    margin: 0px 10px;
+    padding: 0px 0px;
+    list-style-type: none;
+    border: 3px solid black;
+    border-radius: 8px;
+    background: lightgray;
+    width: 400px;
+    font-size: 24px;
+    top: 95px;
+    right: 13px;
+    z-index: 20;
+}
+
+.dropdownMenuText {
+    position: absolute;
+    left: 35px;
+    top: 37px;
+}
+
+.dropdownMenuArrow {
+    position: absolute;
+    right: 37px;
+    top: 35px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid black;
+}
+
+.dropdownMenuEntries > li {
+    margin: 10px;
+}
+  
+.dropdownMenuEntries > li:hover {
+    background-color: lightgray;
+}
+  
+.dropdownMenuEntries > li > button {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    background: lightgray;
+    color: inherit;
+    border: none;
+    padding: 10px 20px;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+}
