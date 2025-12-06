@@ -4,7 +4,7 @@ import json
 
 
 #cmdString = ["lsblk --json -p -o NAME,VENDOR,SIZE,SERIAL,TYPE,MAJ:MIN --exclude 1"]
-cmdString = ["lsblk --json -p -o NAME,VENDOR,SIZE,SERIAL,TYPE,MAJ:MIN --exclude 1,179"]
+cmdString = ["/usr/bin/lsblk --json -p -o NAME,VENDOR,SIZE,SERIAL,TYPE,MAJ:MIN --exclude 1,179"]
 
 
 

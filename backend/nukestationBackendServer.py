@@ -14,10 +14,14 @@ CORS(app)
 
 
 @app.route('/getBlockdeviceInfo', methods=["GET"])
-def blkdevices():
-    #payload = {"message" : "payload"}
-    payload = getBlockdeviceInfo.getBlockdeviceInfo()
-    return flask.jsonify(payload)
+def route_get_blockdevice_info():
+    try:
+        devices = getBlockdeviceInfo.getBlockdeviceInfo()
+        print("getBlockdeviceInfo() returned:", devices, flush=True)
+        return flask.jsonify(devices)
+    except Exception as e:
+        print("ERROR in /getBlockdeviceInfo:", repr(e), flush=True)
+        return flask.jsonify({"error": str(e)}), 500
 
 @app.route('/unmount', methods=['POST'])
 def unmount():
@@ -92,4 +96,4 @@ def progress():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6969, debug=True)
+    app.run(host="0.0.0.0", port=6969, debug=False)
