@@ -61,29 +61,50 @@ function BlockdeviceCard(props) {
     const [wipeMethod, setWipeMethod] = useState('');
     const [progress, setProgress] = useState(-1);
     const [status, setStatus] = useState(-1);
-    //->const [pid, setPid] = useState(-1);
+    const [logfileName, setLogfileName] = useState('');
 
     useEffect(() => {
-        if (wipeActive) {
+        if (wipeActive && logfileName !== '') {
             const interval = setInterval(() => {
-                //getBlockdeviceInfo();
-                props.getWipeProgressCallback(`${logfileDir}`, `${props.vendor}_${props.serial}.log`, `${props.name}`, setProgress, setStatus);
-                //console.log(pr);
-                //setProgress(pr);
-              }, 2000);
-              return () => clearInterval(interval);
+                props.getWipeProgressCallback(
+                    logfileDir,
+                    logfileName,
+                    props.name,
+                    setProgress,
+                    setStatus
+                );
+            }, 2000);
+            return () => clearInterval(interval);
         }
-    });
+    }, [wipeActive, logfileName]);
+    
+    function getTimestamp() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day}_${hours}-${minutes}-${seconds}`;
+}
     
     const handleStartButtonClick = () => {
+        const timestamp = getTimestamp();
+        const logfileNameLocal = `${timestamp}_${props.vendor}_${props.serial}.log`;
+        setLogfileName(logfileNameLocal);
+
         let wipeCommand = `sudo nwipe --autonuke --nogui --method=${wipeMethod}`;
-        wipeCommand = wipeCommand + ' ' + `--logfile=${logfileDir}${props.vendor}_${props.serial}.log`;
-        wipeCommand = wipeCommand + ' ' + props.name;
+        wipeCommand += ` --logfile=${logfileDir}${logfileNameLocal}`;
+        wipeCommand += ` ${props.name}`;
 
         console.log(wipeCommand);
         setWipeActive(true);
         props.setWipeCommandCallback(wipeCommand);
-    }
+    };
 
     const handleStopButtonClick = () => {
         console.log('Stop wipe process');
