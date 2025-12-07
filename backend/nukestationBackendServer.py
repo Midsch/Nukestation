@@ -45,13 +45,20 @@ def json_example():
         print(nwipePID)
     return {'nwipe pid' : nwipePID}
 
-@app.route('/sendWipeCommand', methods=['POST'])
-def send_wipe_command():
-    requestData = request.get_json()
-    if 'command' in requestData:
-        tmp = requestData['command']
-        nwipePID = commandInterface.executeCommand(tmp)
-    return {'nwipe pid' : nwipePID}
+@app.route('/sendWipeCommand', methods=["POST"])
+def route_send_wipe_command():
+    data = flask.request.get_json()
+    command_string = data.get("command")
+
+    if not command_string:
+        return flask.jsonify({"error": "missing command"}), 400
+
+    try:
+        pid = commandInterface.executeCommand(command_string)
+        return flask.jsonify({"pid": pid})
+    except Exception as e:
+        print("ERROR in /sendWipeCommand:", repr(e), flush=True)
+        return flask.jsonify({"error": str(e)}), 500
 
 @app.route('/kill', methods=['POST'])
 def killCommand():
