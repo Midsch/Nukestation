@@ -60,22 +60,30 @@ def route_send_wipe_command():
         print("ERROR in /sendWipeCommand:", repr(e), flush=True)
         return flask.jsonify({"error": str(e)}), 500
 
-@app.route('/kill', methods=['POST'])
-def killCommand():
-    requestData = request.get_json()
-    print(requestData)
-    if 'command' in requestData:
-        print('command found!')
-        
-        #pid = int(requestData['command'])
-        blockdeviceName = requestData['command']
-        #print(pid)
-        #print(type(pid))
-        print(blockdeviceName)
-        #success = commandInterface.executeKill(pid)
-        success = commandInterface.executeKill(blockdeviceName)
-        print(success)
-    return {'message' : 'process killed'}
+@app.route('/kill', methods=["POST"])
+def route_kill():
+    """
+    Erwartet JSON-Body:
+    {
+      "blockdeviceName": "/dev/sda"
+    }
+    """
+    data = flask.request.get_json(silent=True) or {}
+
+    blockdevice_name = data.get("blockdeviceName")
+
+    if not blockdevice_name:
+        # Debug-Ausgabe, damit man im Log sieht, was ankam
+        print("ERROR in /kill: missing blockdeviceName, data was:", data, flush=True)
+        return flask.jsonify({"error": "missing blockdeviceName"}), 400
+
+    try:
+        result = commandInterface.executeKill(blockdevice_name)
+        print(f"/kill called for {blockdevice_name}, result: {result}", flush=True)
+        return flask.jsonify({"result": result})
+    except Exception as e:
+        print("ERROR in /kill:", repr(e), flush=True)
+        return flask.jsonify({"error": str(e)}), 500
 
 @app.route('/progress', methods=["POST"])
 def progress():

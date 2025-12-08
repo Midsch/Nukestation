@@ -42,21 +42,22 @@ function MainView(props) {
     }
   }
 
-  async function sendKillCommand(payload) {
+  async function sendKillCommand(blockdeviceName) {
     try {
-      const response = await fetch('/kill', {
+        const response = await fetch('/kill', {
         method: 'POST',
-        body: JSON.stringify({
-          command: payload,
-        }),
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+            'Content-Type': 'application/json; charset=UTF-8',
         },
-      });
-      const res = await response.json();
-      console.log('Kill-Response:', res);
+        body: JSON.stringify({
+            blockdeviceName: blockdeviceName,   // z.B. "/dev/sda"
+        }),
+        });
+
+        const res = await response.json();
+        console.log('Kill-Response:', res);
     } catch (error) {
-      console.error('Error bei /kill:', error);
+        console.error('Error bei /kill:', error);
     }
   }
 
